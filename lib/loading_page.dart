@@ -8,6 +8,12 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> {
 
+  @override
+  void initState() {
+    super.initState();
+
+    this.getLocation();
+  }
   void getLocation() async {
 
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
@@ -16,15 +22,6 @@ class _LoadingPageState extends State<LoadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            getLocation();
-          },
-          child: Text("Get Location"),
-        ),
-      ),
-    );
+    return Scaffold();
   }
 }
