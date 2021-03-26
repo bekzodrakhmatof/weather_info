@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bekzodrakhmatov.weather_info">
-   <application
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <application
         android:label="weather_info"
         android:icon="@mipmap/ic_launcher">
         <activity
