@@ -16,8 +16,13 @@ class _LoadingPageState extends State<LoadingPage> {
   }
   void getLocation() async {
 
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-    print(position);
+    try {
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+      print(position);
+    } catch (e) {
+      print(e);
+    }
+
   }
 
   @override
