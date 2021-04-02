@@ -15,6 +15,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   geolocator: ^7.0.1
   http: ^0.13.1
+  flutter_spinkit: ^4.1.2
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -23,3 +25,6 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+
+  assets:
+    - images/

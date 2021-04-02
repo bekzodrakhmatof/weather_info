@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:weather_info/location_page.dart';
 import 'location.dart';
 import 'networking.dart';
 
@@ -24,20 +26,35 @@ class _LoadingPageState extends State<LoadingPage> {
     Location location = Location();
     await location.getCurrentLocation();
     Network network = Network(location);
-
     var weatherData = await network.getWeatherData();
-    double temperature = weatherData["main"]["temp"];
-    int condition = weatherData["weather"][0]["id"];
-    String cityName = weatherData["name"];
-
-    print(temperature);
-    print(condition);
-    print(cityName);
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return LocationPage(weatherData);
+    }));
   }
 
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold();
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF101821),
+                  Color(0xFF3E8A6E)
+                ]
+            )
+        ),
+        child: Center(
+          child: SpinKitDoubleBounce(
+            color: Colors.white,
+            size: 200,
+          ),
+        ),
+      ),
+    );
   }
 }
+
+
