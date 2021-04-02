@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'constants.dart';
 
 class LocationPage extends StatefulWidget {
@@ -61,35 +60,48 @@ class _LocationPageState extends State<LocationPage> {
                 ]
             )
         ),
-
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(today),
-                  Text("$cityName, $countryCode"),
-                ],
-              ),
-              Container(
-                child: Center(
-                  child: Image.network(
-                    "https://openweathermap.org/img/wn/$icon@4x.png",
-                    width: 200,
-                    height: 200,
-                    fit: BoxFit.fill,
-                  )
+          child: Padding(
+            padding: EdgeInsets.only(top: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Text(
+                      "$temperature°C",
+                      style: kTempTextStyle,
+                    ),
+                    Text(
+                      mainDesc,
+                      style: kConditionTextStyle,),
+                  ],
                 ),
-              ),
-              Column(
-                children: <Widget>[
-                  Text(mainDesc),
-                  Text("$temperature°C"),
-                ],
-              )
-            ],
+                Container(
+                  child: Center(
+                    child: Image.network(
+                      "https://openweathermap.org/img/wn/$icon@4x.png",
+                      width: 300,
+                      height: 300,
+                      fit: BoxFit.fill,
+                    )
+                  ),
+                ),
+
+                Column(
+                  children: <Widget>[
+                    Text(
+                      today,
+                      style: kMessageTextStyle,
+                    ),
+                    Text(
+                      "$cityName, $countryCode",
+                      style: kButtonTextStyle,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
