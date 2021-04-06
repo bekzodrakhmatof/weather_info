@@ -31,7 +31,7 @@ class _LocationPageState extends State<LocationPage> {
   }
 
   void updateUI(dynamic weatherData) {
-    print(weatherData);
+
     double temperature = weatherData["main"]["temp"];
     var firstWeather = weatherData["weather"][0];
     this.temperature = temperature.toInt();
@@ -50,100 +50,105 @@ class _LocationPageState extends State<LocationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF101821),
-                  Color(0xFF3E8A6E)
-                ]
-            )
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.only(top: 25),
-            child: Stack(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Text(
-                          "$temperature°C",
-                          style: kTempTextStyle,
-                        ),
-                        Text(
-                          mainDesc,
-                          style: kConditionTextStyle,),
-                      ],
-                    ),
-                    Container(
-                      child: Center(
-                          child: Image.network(
-                            "https://openweathermap.org/img/wn/$icon@4x.png",
-                            width: 300,
-                            height: 300,
-                            fit: BoxFit.fill,
-                          )
+      body: Center(
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF101821),
+                    Color(0xFF3E8A6E)
+                  ]
+              )
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.only(top: 25),
+              child: Stack(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Text(
+                            "$temperature°C",
+                            style: kTempTextStyle,
+                          ),
+                          Text(
+                            mainDesc,
+                            style: kConditionTextStyle,),
+                        ],
                       ),
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Text(
-                          today,
-                          style: kMessageTextStyle,
+                      Container(
+                        child: Center(
+                            child: Image.network(
+                              "https://openweathermap.org/img/wn/$icon@4x.png",
+                              width: 200,
+                              height: 200,
+                              fit: BoxFit.fill,
+                            )
                         ),
-                        Text(
-                          "$cityName, $countryCode",
-                          style: kButtonTextStyle,
-                        ),
-                      ],
-                    ),
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Text(
+                            today,
+                            style: kMessageTextStyle,
+                          ),
+                          Text(
+                            "$cityName, $countryCode",
+                            style: kButtonTextStyle,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    child: RawMaterialButton(
+                      shape: CircleBorder(),
+                      fillColor: Color(0xFF101821),
+                      child: Icon(Icons.add),
+                      elevation: 0,
+                      constraints: BoxConstraints.tightFor(
+                          width: 60,
+                          height: 60,
+                      ),
+                      onPressed: () async {
+                        var cityName = await Navigator.push(context, MaterialPageRoute(builder: (context){
+                          return CityPage();
+                        }));
 
-                  ],
-                ),
-                Positioned(
-                  child: RawMaterialButton(
-                    shape: CircleBorder(),
-                    fillColor: Color(0xFF101821),
-                    child: Icon(Icons.add),
-                    elevation: 0,
-                    constraints: BoxConstraints.tightFor(
+                        if(cityName != null) {
+
+                        }
+                        print("city name: $cityName");
+                      },
+                    ),
+                    bottom: 16,
+                    right: 16,
+                  ),
+                  Positioned(
+                    child: RawMaterialButton(
+                      shape: CircleBorder(),
+                      fillColor: Color(0xFF101821),
+                      child: Icon(Icons.near_me),
+                      elevation: 0,
+                      constraints: BoxConstraints.tightFor(
                         width: 60,
                         height: 60,
+                      ),
+                      onPressed: () {
+                        this.updateUI(widget.weatherData);
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return CityPage();
-                      }));
-                    },
+                    bottom: 16,
+                    left: 16,
                   ),
-                  bottom: 16,
-                  right: 16,
-                ),
-                Positioned(
-                  child: RawMaterialButton(
-                    shape: CircleBorder(),
-                    fillColor: Color(0xFF101821),
-                    child: Icon(Icons.near_me),
-                    elevation: 0,
-                    constraints: BoxConstraints.tightFor(
-                      width: 60,
-                      height: 60,
-                    ),
-                    onPressed: () {
-
-                    },
-                  ),
-                  bottom: 16,
-                  left: 16,
-                ),
-              ],
-            )
-
+                ],
+              ),
+            ),
           ),
         ),
       ),

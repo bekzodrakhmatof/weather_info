@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
 class CityPage extends StatefulWidget {
   @override
@@ -6,6 +7,9 @@ class CityPage extends StatefulWidget {
 }
 
 class _CityPageState extends State<CityPage> {
+
+  String cityName;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +26,7 @@ class _CityPageState extends State<CityPage> {
             ),
             child: SafeArea(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Align(
                     alignment: Alignment.topLeft,
@@ -48,24 +53,41 @@ class _CityPageState extends State<CityPage> {
                   Container(
                     padding: EdgeInsets.all(16),
                     child: TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        icon: Icon(
-                          Icons.location_city,
-                          color: Colors.white,
-                        ),
-                        hintText: "Enter city name",
-                        hintStyle: TextStyle(
-                          color: Colors.grey
-                        )
+                      style: TextStyle(
+                        color: Colors.black,
                       ),
+                      decoration: kTextFieldInputDecoration,
+                      onChanged: (value){
+                        cityName = value;
+                      },
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pop(context, cityName);
+                    },
+                    child: Container(
+                      child: Center(
+                        child: Text(
+                          "GET WEATHER",
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      margin: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF3E8A6E),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      width: double.infinity,
+                      height: 60,
                     ),
                   )
                 ],
-              )
-            )
-        )
+              ),
+            ),
+        ),
     );
   }
 }
