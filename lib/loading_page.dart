@@ -12,22 +12,20 @@ class LoadingPage extends StatefulWidget {
 
 class _LoadingPageState extends State<LoadingPage> {
 
-  double latitude;
-  double longitude;
-
   @override
   void initState() {
     super.initState();
-    this.getLocationData();
+    getCurrentLocationWeatherData();
   }
 
-  void getLocationData() async {
+  void getCurrentLocationWeatherData() async {
 
     Location location = Location();
     await location.getCurrentLocation();
-    Network network = Network(location);
+    Network network = Network(location, null);
     var weatherData = await network.getWeatherData();
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
+
+    Navigator.push(context, MaterialPageRoute(builder: (context){
       return LocationPage(weatherData);
     }));
   }

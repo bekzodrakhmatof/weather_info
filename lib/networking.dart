@@ -15,8 +15,7 @@ class Network {
 
     if(cityName != null) {
       uri = Uri.https("api.openweathermap.org", "/data/2.5/weather", {
-        "lat": location.latitude.toString(),
-        "lon": location.longitude.toString(),
+        "q": cityName,
         "appid": apiKey,
         "units": "metric",
       });

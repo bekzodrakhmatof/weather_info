@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 const kTempTextStyle = TextStyle(
   fontFamily: "Spartan MB",
-  fontSize: 140,
+  fontSize: 80,
 );
 
 const kMessageTextStyle = TextStyle(
-  fontSize: 32,
+  fontSize: 20,
 );
 
 const kButtonTextStyle = TextStyle(
-  fontSize: 24,
+  fontSize: 16,
 );
 
 const kConditionTextStyle = TextStyle(
   fontFamily: "Spartan MB",
-  fontSize: 60,
+  fontSize: 30,
 );
 
 const kTextFieldInputDecoration = InputDecoration(

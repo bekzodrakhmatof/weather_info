@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_info/location.dart';
 import 'constants.dart';
 
 class CityPage extends StatefulWidget {
@@ -8,6 +9,7 @@ class CityPage extends StatefulWidget {
 
 class _CityPageState extends State<CityPage> {
 
+  Location location;
   String cityName;
 
   @override

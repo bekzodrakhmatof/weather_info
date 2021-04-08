@@ -3,6 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_info/city_page.dart';
 import 'constants.dart';
+import 'location.dart';
+import 'networking.dart';
 
 class LocationPage extends StatefulWidget {
 
@@ -32,19 +34,36 @@ class _LocationPageState extends State<LocationPage> {
 
   void updateUI(dynamic weatherData) {
 
-    double temperature = weatherData["main"]["temp"];
-    var firstWeather = weatherData["weather"][0];
-    this.temperature = temperature.toInt();
-    this.condition = firstWeather["id"];
-    this.mainDesc = firstWeather["main"];
-    print(firstWeather);
-    this.icon = firstWeather["icon"];
-    this.cityName = weatherData["name"];
-    this.countryCode = weatherData["sys"]["country"];
+    setState(() {
+      var temperature = weatherData["main"]["temp"];
+      var firstWeather = weatherData["weather"][0];
+      this.temperature = temperature.toInt();
+      this.condition = firstWeather["id"];
+      this.mainDesc = firstWeather["main"];
+      this.icon = firstWeather["icon"];
+      this.cityName = weatherData["name"];
+      this.countryCode = weatherData["sys"]["country"];
 
-    DateTime now = DateTime.now();
-    DateFormat formatter = DateFormat('EEEE, MMMM d');
-    this.today = formatter.format(now);
+      DateTime now = DateTime.now();
+      DateFormat formatter = DateFormat('EEEE, MMMM d');
+      this.today = formatter.format(now);
+    });
+  }
+
+  void getCurrentLocationWeatherData() async {
+
+    Location location = Location();
+    await location.getCurrentLocation();
+    Network network = Network(location, null);
+    var weatherData = await network.getWeatherData();
+    this.updateUI(weatherData);
+  }
+
+  void getCityWeatherData() async {
+
+    Network network = Network(null, this.cityName);
+    var weatherData = await network.getWeatherData();
+    this.updateUI(weatherData);
   }
 
   @override
@@ -121,9 +140,9 @@ class _LocationPageState extends State<LocationPage> {
                         }));
 
                         if(cityName != null) {
-
+                          this.cityName = cityName;
+                          this.getCityWeatherData();
                         }
-                        print("city name: $cityName");
                       },
                     ),
                     bottom: 16,
@@ -140,7 +159,7 @@ class _LocationPageState extends State<LocationPage> {
                         height: 60,
                       ),
                       onPressed: () {
-                        this.updateUI(widget.weatherData);
+                        this.getCurrentLocationWeatherData();
                       },
                     ),
                     bottom: 16,
